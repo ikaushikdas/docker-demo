@@ -4,6 +4,6 @@ sonar.projectVersion=1.0
 sonar.sources=src
 sonar.sourceEncoding=UTF-8
 sonar.host.url=http://localhost:9000/
-sonar.login=squ_044fa29cd8a835ad048d57994d1baee56e1a7fc2
+sonar.login=squ_201dbfa892b7006b00f88da61df9df9e97725805
 sonar.exclusions=**/node_modules/**,/coverage/lcov-report/*,test/*.js
 sonar.javascript.lcov.reportPaths=coverage/lcov.info
