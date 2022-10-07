@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  sonarqube:
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - jenkins
+    environment:
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=Test12345
+      - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
+    volumes:
+      - /opt/sonarqube/logs:/opt/sonarqube/logs
+      - /opt/sonarqube/data:/opt/sonarqube/data
+      - /opt/sonarqube/extensions:/opt/sonarqube/extensions
+
+  db:
+    image: postgres:14.5-alpine
+    networks:
+      - jenkins
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=Test12345
+    volumes:
+      - /var/postgres-data:/var/lib/postgresql/data
+
+networks:
+  jenkins:
+    driver: bridge
