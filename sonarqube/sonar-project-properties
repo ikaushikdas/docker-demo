@@ -1,7 +1,7 @@
 sonar.projectKey=nodejs-app
 sonar.projectName=nodejs-app
 sonar.projectVersion=1.0
-sonar.sources=src
+sonar.sources=
 sonar.sourceEncoding=UTF-8
 sonar.host.url=http://43.205.125.152:9000/
 sonar.login=squ_92352880ea7a2877f578e1dce7faf65341343410
