@@ -20,7 +20,7 @@ pipeline {
 
                 }
                 //sh 'cd ${pwd}'
-                sh 'tar -czvf node-app.tar.gz ./test node_modules package.json index-db.js index.js'
+                sh 'tar -czvf node-app.tar.gz ./test package.json index-db.js index.js'
             }
         }
         stage('Upload to Artifact'){
