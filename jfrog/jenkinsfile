@@ -1,10 +1,10 @@
 pipeline {
     agent any
 
-    enviroment {
-        CI = true
-        ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
-    }
+    // enviroment {
+    //     CI = true
+    //     ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
+    // }
     stages {
         stage('preparation') {
             steps {
