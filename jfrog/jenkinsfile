@@ -19,9 +19,8 @@ pipeline {
                     sh 'npm run test'                 
 
                 }
-                //sh 'pwd'
-                sh 'cd ${pwd}'
-                sh 'ls'
+                //sh 'cd ${pwd}'
+                sh 'tar -czvf node-app.tar.gz ./test node_modules package.json indexdb.js index.js'
             }
         }
         // stage('Upload to Artifact'){
