@@ -33,7 +33,7 @@ pipeline {
             }
             steps{
                 sh '${pwd}'
-                sh 'jf rt u --url https://devopsdemoartifact.jfrog.io/artifactory --access-token ${ARTIFACTORY_ACCESS_TOKEN} ${pwd}/node-app.tar.gz node-app-npm/'
+                sh 'jf rt u --url https://devopsdemoartifact.jfrog.io/artifactory --access-token ${ARTIFACTORY_ACCESS_TOKEN} node-app.tar.gz node-app-npm/'
             }  
 
         }
