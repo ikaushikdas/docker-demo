@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    enviroments {
+    environment {
         CI = true
         ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
     }
