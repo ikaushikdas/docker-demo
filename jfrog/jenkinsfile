@@ -19,7 +19,9 @@ pipeline {
                     sh 'npm run test'                 
 
                 }
-                sh 'pwd'
+                //sh 'pwd'
+                sh 'cd ${pwd}'
+                sh 'ls'
             }
         }
         // stage('Upload to Artifact'){
