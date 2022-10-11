@@ -1,10 +1,10 @@
 pipeline {
     agent any
 
-    // enviroment {
-    //     CI = true
-    //     ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
-    // }
+    enviroment {
+        CI = true
+        ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
+    }
     stages {
         stage('preparation') {
             steps {
@@ -23,19 +23,19 @@ pipeline {
                 sh 'tar -czvf node-app.tar.gz ./test node_modules package.json index-db.js index.js'
             }
         }
-        // stage('Upload to Artifact'){
-        //    agent {
+        stage('Upload to Artifact'){
+           agent {
              
-        //         docker{
-        //             image 'docker.bintray.io/jfrog/artifactory-pro:latest'
-        //             reuseNode true
-        //         }
-        //     }
-        //     steps{
-        //         sh 'jf rt u --url https://devopsdemoartifact.jfrog.io/artifactory --access-token ${ARTIFACTORY_ACCESS_TOKEN}'
-        //     }  
+                docker{
+                    image 'docker.bintray.io/jfrog/artifactory-pro:latest'
+                    reuseNode true
+                }
+            }
+            steps{
+                sh 'jf rt u --url https://devopsdemoartifact.jfrog.io/artifactory --access-token ${ARTIFACTORY_ACCESS_TOKEN} ./node-app.tar.gz node-app-npm/'
+            }  
 
-        // }
+        }
     }
 }
 
