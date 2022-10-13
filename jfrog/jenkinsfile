@@ -28,7 +28,7 @@ pipeline {
              
                 docker{
                     image 'docker.bintray.io/jfrog/artifactory-pro:latest'
-                    reuseNode true
+                    //reuseNode true
                 }
             }
             steps{
