@@ -31,7 +31,7 @@ pipeline {
         stage('Login to DockerHub'){
            
             steps{
-                sh 'cat $DOCKER_ACCESS_TOKEN_PSW | docker login --username $DOCKER_ACCESS_TOKEN_USR --password-stdin'
+                sh 'echo $DOCKER_ACCESS_TOKEN_PSW | docker login --username $DOCKER_ACCESS_TOKEN_USR --password-stdin'
             }  
 
         }
