@@ -24,21 +24,21 @@ pipeline {
         stage('Build Docker Image'){
            
             steps{
-                sh 'docker build -t demo-node-app:${BUILD_NUMBER} .'
+                sh 'docker build -t ikaushik96/new-node-app:$BUILD_NUMBER .'
             }  
 
         }
         stage('Login to DockerHub'){
            
             steps{
-                sh 'cat ~/$(DOCKER_ACCESS_TOKEN) | docker login --username ikaushik96 --password-stdin'
+                sh 'cat $DOCKER_ACCESS_TOKEN_PSW | docker login --username $DOCKER_ACCESS_TOKEN_USR --password-stdin'
             }  
 
         }
         stage('Publish to DockerHub'){
            
             steps{
-                sh 'docker image push demo-node-app:${BUILD_NUMBER} ikaushik96/new-node-app'
+                sh 'docker push ikaushik96/new-node-app:$BUILD_NUMBER'
             }  
 
         }
