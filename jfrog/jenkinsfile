@@ -27,7 +27,7 @@ pipeline {
            agent {
              
                 docker{
-                    image 'docker.bintray.io/jfrog/artifactory-pro:latest'
+                    image 'releases-docker.jfrog.io/jfrog/pipelines-u18node:12'
                     //reuseNode true
                 }
             }
