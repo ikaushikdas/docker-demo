@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_ACCESS_TOKEN = credentials('docker-hub-new')
+    }
+    stages {
+        stage('preparation') {
+            steps {
+                git 'https://github.com/ikaushikdas/docker-demo.git'
+            }
+        }
+        stage('build') {
+            steps {
+              
+                nodejs(nodeJSInstallationName: 'nodejs') {
+                    sh 'npm install'
+                    sh 'npm run test'                 
+
+                }
+                
+            }
+        }
+        stage('Build Docker Image'){
+           
+            steps{
+                sh 'docker build -t demo-node-app:${BUILD_NUMBER} .'
+            }  
+
+        }
+        stage('Login to DockerHub'){
+           
+            steps{
+                sh 'cat ~/$(DOCKER_ACCESS_TOKEN) | docker login --username ikaushik96 --password-stdin'
+            }  
+
+        }
+        stage('Publish to DockerHub'){
+           
+            steps{
+                sh 'docker image push demo-node-app:${BUILD_NUMBER} ikaushik96/new-node-app'
+            }  
+
+        }
+        
+    }
+}
