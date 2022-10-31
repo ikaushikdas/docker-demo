@@ -12,17 +12,7 @@ pipeline {
                 git 'https://github.com/ikaushikdas/docker-demo.git'
             }
         }
-        // stage('build') {
-        //     steps {
-              
-        //         nodejs(nodeJSInstallationName: 'nodejs') {
-        //             sh 'npm install'
-        //             sh 'npm run test'                 
 
-        //         }
-                
-        //     }
-        // }
         stage('Login to AWS ECS'){
            
             steps{

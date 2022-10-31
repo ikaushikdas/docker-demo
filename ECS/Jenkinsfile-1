@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_ACCESS_TOKEN = credentials('aws-creds')
+        AWS_ACCESS_REGION = 'ap-south-1'
+
+    }
+    stages {
+        stage('preparation') {
+            steps {
+                git 'https://github.com/ikaushikdas/docker-demo.git'
+            }
+        }
+        stage('Build Docker Image'){
+           
+            steps{
+                script {
+                dockerImage = docker.build node-app:$BUILD_NUMBER 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app + ':$BUILD_NUMBER'
+                }
+                
+            }  
+
+        }
+        
+        stage('Push To ECS'){
+           
+            steps{
+                docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:" + $AWS_ACCESS_REGION + ":" + $AWS_ACCESS_TOKEN) {
+                    dockerImage.push()
+                } 
+
+        }
+        
+        
+    }
+    
+    }
+    
+}
