@@ -23,29 +23,26 @@ pipeline {
                 
         //     }
         // }
-        // stage('Login to AWS ECS'){
-           
-        //     steps{
-        //         sh 'aws ecr $AWS_ACCESS_TOKEN_PSW --region $AWS_ACCESS_REGION | docker login --username $AWS_ACCESS_TOKEN_USR --password-stdin 116361412831.dkr.ecr.ap-south-1.amazonaws.com'
-        //     }  
-
-        // }
-        stage('Build Docker Image'){
+        stage('Login to AWS ECS'){
            
             steps{
-                dockerImage = docker.build 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app + ":$BUILD_NUMBER"
-                //sh 'docker tag node-app:$BUILD_NUMBER 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:$BUILD_NUMBER'
-               
+                 sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 116361412831.dkr.ecr.ap-south-1.amazonaws.com'
             }  
 
         }
-        stage('Push To ECS'){
+        stage('Build Docker Image'){
            
             steps{
-                //sh 'docker push 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:$BUILD_NUMBER'
-                docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:" + AWS_ACCESS_REGION + ":" + AWS_ACCESS_TOKEN) {
-                    dockerImage.push()
-                } 
+                   sh 'docker build -t node-app .'
+                   sh 'docker tag node-app:$BUILD_NUMBER 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:$BUILD_NUMBER'               
+            }  
+
+        }
+        stage('Push To ECR'){
+           
+            steps{
+                sh 'docker push 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:latest'
+            } 
 
         }
         
