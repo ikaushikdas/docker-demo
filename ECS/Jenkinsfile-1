@@ -16,7 +16,7 @@ pipeline {
            
             steps{
                 script {
-                dockerImage = docker.build 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app + ':$BUILD_NUMBER'
+                dockerImage = docker.build 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:$BUILD_NUMBER'
                 
                 
             }  
