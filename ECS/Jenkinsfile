@@ -24,14 +24,14 @@ pipeline {
            
             steps{
                    sh 'docker build -t node-app .'
-                   sh 'docker tag node-app:$BUILD_NUMBER 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:$BUILD_NUMBER'               
+                   sh 'docker tag node-app:${BUILD_NUMBER} 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:${BUILD_NUMBER}'               
             }  
 
         }
         stage('Push To ECR'){
            
             steps{
-                sh 'docker push 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:$BUILD_NUMBER'
+                sh 'docker push 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:${BUILD_NUMBER}'
             } 
 
         }

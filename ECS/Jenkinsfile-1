@@ -31,7 +31,7 @@ pipeline {
 
                     docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:$AWS_ACCESS_TOKEN") {
                     docker.image("node-app:$BUILD_NUMBER").push()
-}
+                    }
                 } 
 
         }
@@ -39,6 +39,6 @@ pipeline {
         
     }
     
-    }
-    
 }
+    
+
