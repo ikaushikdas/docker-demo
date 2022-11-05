@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-            AWS_CREDENTIALS = credentials('aws-creds')
+            //AWS_CREDENTIALS = credentials('aws-creds')
     }
     stages{
         stage('preparation') {
@@ -27,7 +27,7 @@ pipeline {
            
             steps{
                 script {
-                    docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:${AWS_CREDENTIALS}") {
+                    docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:aws-creds") {
                     dockerImage.push('node-app:${BUILD_NUMBER}')
                     }
 
