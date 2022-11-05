@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-    // environment {
-    //     AWS_ACCESS_TOKEN = credentials('aws-creds')
-    //     AWS_ACCESS_REGION = 'ap-south-1'
+    environment {
+        AWS_ACCESS_TOKEN = credentials('aws-creds')
+        //AWS_ACCESS_REGION = 'ap-south-1'
 
-    // }
+    }
     stages {
         stage('preparation') {
             steps {
@@ -16,7 +16,7 @@ pipeline {
         stage('Login to AWS ECS'){
            
             steps{
-                 sh 'aws ecr get-login-password aws-creds --region ap-south-1 | docker login --username AWS --password-stdin 116361412831.dkr.ecr.ap-south-1.amazonaws.com'
+                 sh 'aws ecr get-login-password ${AWS_ACCESS_TOKEN} --region ap-south-1 | docker login --username AWS --password-stdin 116361412831.dkr.ecr.ap-south-1.amazonaws.com'
             }  
 
         }
