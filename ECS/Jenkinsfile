@@ -1,11 +1,6 @@
 pipeline {
     agent any
-
-    environment {
-        AWS_ACCESS_TOKEN = credentials('aws-creds')
-        //AWS_ACCESS_REGION = 'ap-south-1'
-
-    }
+    
     stages {
         stage('preparation') {
             steps {
