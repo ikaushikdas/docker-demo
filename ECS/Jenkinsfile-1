@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        ACCESS_TOKEN = credentials('aws-creds')
+        def ACCESS_TOKEN = credentials('aws-creds')
         //REGISTRY = '116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app'
 
         }
