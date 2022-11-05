@@ -11,24 +11,24 @@ pipeline {
                 sh 'cat ${CREDENTIALS}'
             }
         }
-        // stage('Build Docker Image'){
+        stage('Build Docker Image'){
            
-        //     steps{
-        //         script {
-        //         dockerImage = docker.build("node-app:${BUILD_NUMBER}")
+            steps{
+                script {
+                dockerImage = docker.build("node-app:${BUILD_NUMBER}")
                 
                 
-        //         }  
+                }  
 
-        //     }
-        // }
+            }
+        }
         
         stage('Push To ECS'){
            
             steps{
                 script {
                     docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:aws-creds") {
-                    docker.push('node-app:${BUILD_NUMBER}')
+                    dockerImage.push()
                     }
 
                 } 
