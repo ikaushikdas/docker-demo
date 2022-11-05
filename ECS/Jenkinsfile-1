@@ -2,10 +2,8 @@ pipeline {
     agent any
 
     environment {
-        def ACCESS_TOKEN = credentials('aws-creds')
-        //REGISTRY = '116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app'
-
-        }
+            EXAMPLE_CREDS = credentials('aws-creds')
+    }
     stages{
         stage('preparation') {
             steps {
@@ -28,7 +26,7 @@ pipeline {
            
             steps{
                 script {
-                    docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:${ACCESS_TOKEN}") {
+                    docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:${EXAMPLE_CREDS}") {
                     dockerImage.push()
                     }
 
