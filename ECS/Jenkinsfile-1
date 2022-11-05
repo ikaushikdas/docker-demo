@@ -1,34 +1,34 @@
 pipeline {
     agent any
-    
-    def CREDENTIALS = []
+
     environment {
-            CREDENTIALS = credentials('aws-creds')
+            AWS_CREDENTIALS = credentials('aws-creds')
     }
     stages{
         stage('preparation') {
             steps {
                 git 'https://github.com/ikaushikdas/docker-demo.git'
+                sh 'cat ${CREDENTIALS}'
             }
         }
-        stage('Build Docker Image'){
+        // stage('Build Docker Image'){
            
-            steps{
-                script {
-                dockerImage = docker.build("node-app:${BUILD_NUMBER}")
+        //     steps{
+        //         script {
+        //         dockerImage = docker.build("node-app:${BUILD_NUMBER}")
                 
                 
-                }  
+        //         }  
 
-            }
-        }
+        //     }
+        // }
         
         stage('Push To ECS'){
            
             steps{
                 script {
-                    docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:${CREDENTIALS}") {
-                    dockerImage.push()
+                    docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:${AWS_CREDENTIALS}") {
+                    dockerImage.push('node-app:${BUILD_NUMBER}')
                     }
 
                 } 
