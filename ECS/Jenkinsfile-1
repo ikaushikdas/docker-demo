@@ -1,14 +1,10 @@
 pipeline {
     agent any
 
-    // environment {
-    //         //AWS_CREDENTIALS = credentials('aws-creds')
-    // }
     stages{
         stage('preparation') {
             steps {
                 git 'https://github.com/ikaushikdas/docker-demo.git'
-                sh 'cat ${CREDENTIALS}'
             }
         }
         stage('Build Docker Image'){
