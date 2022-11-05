@@ -28,7 +28,7 @@ pipeline {
             steps{
                 script {
                     docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:aws-creds") {
-                    dockerImage.push('node-app:${BUILD_NUMBER}')
+                    docker.push('node-app:${BUILD_NUMBER}')
                     }
 
                 } 
