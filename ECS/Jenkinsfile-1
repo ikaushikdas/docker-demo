@@ -1,8 +1,9 @@
 pipeline {
     agent any
-
+    
+    def CREDENTIALS = []
     environment {
-            credentials = credentials('aws-creds')
+            CREDENTIALS = credentials('aws-creds')
     }
     stages{
         stage('preparation') {
@@ -26,7 +27,7 @@ pipeline {
            
             steps{
                 script {
-                    docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:${credentials}") {
+                    docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:${CREDENTIALS}") {
                     dockerImage.push()
                     }
 
