@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    environment {
-            //AWS_CREDENTIALS = credentials('aws-creds')
-    }
+    // environment {
+    //         //AWS_CREDENTIALS = credentials('aws-creds')
+    // }
     stages{
         stage('preparation') {
             steps {
