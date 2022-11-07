@@ -11,10 +11,13 @@ pipeline {
         stage('Login to AWS ECS'){
            
             steps{
-                script{
-                sh 'echo $USER'
-                 sh 'sudo aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 116361412831.dkr.ecr.ap-south-1.amazonaws.com'
-            }   }
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                AWS("--region=eu-west-1 s3 ls")
+                // script{
+                // //sh 'echo $USER'
+                //  sh 'sudo aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 116361412831.dkr.ecr.ap-south-1.amazonaws.com'
+                // }   
+            }
 
         }
         stage('Build Docker Image'){
