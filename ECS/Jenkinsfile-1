@@ -11,9 +11,7 @@ pipeline {
            
             steps{
                 script {
-                dockerImage = docker.build("node-app:${BUILD_NUMBER}")
-                
-                
+                dockerImage = docker.build("node-app:${BUILD_NUMBER}")    
                 }  
 
             }
