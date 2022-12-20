@@ -7,60 +7,60 @@ pipeline {
                 git 'https://github.com/ikaushikdas/docker-demo.git'
             }
         }
-        stage('Build Docker Image'){
+        // stage('Build Docker Image'){
            
-            steps{
-                script {
-                //dockerImage = docker.build("node-app:${BUILD_NUMBER}")  
-                dockerImage = docker.build("node-app:latest")    
-                }  
-
-            }
-        }
-
-        // stage('Delete Existing image from ecr'){
         //     steps{
-        //         script{
-        //             withAWS(credentials:'aws-creds', region:'ap-south-1') {
-        //             sh 'aws ecr list-images \
-        //                 --repository-name node-app'
-        //             def myVariable = sh 'aws ecr list-images \
-        //                 --repository-name node-app'
+        //         script {
+        //         //dockerImage = docker.build("node-app:${BUILD_NUMBER}")  
+        //         dockerImage = docker.build("node-app:latest")    
+        //         }  
 
-        //             // sh 'aws ecr batch-delete-image \
-        //             // --repository-name my-repo \
-        //             // --image-ids imageDigest='
-        //             if(myVariable != ''){
-        //             echo myVariable.imageIds['imageDigest']
-        //             }
-        //             }             
-        //         }
         //     }
         // }
-        
-        stage('Push To ECS'){
-           
+
+        stage('Delete Existing image from ecr'){
             steps{
-                script {
-                    docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:aws-creds") {
-                    dockerImage.push()
+                script{
+                    withAWS(credentials:'aws-creds', region:'ap-south-1') {
+                    sh 'aws ecr list-images \
+                        --repository-name node-app'
+                    def myVariable = sh 'aws ecr list-images \
+                        --repository-name node-app'
+
+                    // sh 'aws ecr batch-delete-image \
+                    // --repository-name my-repo \
+                    // --image-ids imageDigest='
+                    if(myVariable != ''){
+                    echo myVariable.imageIds['imageDigest']
                     }
-
-                } 
-
+                    }             
+                }
             }
-        
-        
         }
-        stage('Remove Image'){
+        
+        // stage('Push To ECS'){
            
-            steps{
-                    sh 'docker rmi -f 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:latest'
-                    sh 'docker rmi -f node-app:latest'
+        //     steps{
+        //         script {
+        //             docker.withRegistry("https://116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app", "ecr:ap-south-1:aws-creds") {
+        //             dockerImage.push()
+        //             }
 
-                } 
+        //         } 
 
-            }
+        //     }
+        
+        
+        // }
+        // stage('Remove Image'){
+           
+        //     steps{
+        //             sh 'docker rmi -f 116361412831.dkr.ecr.ap-south-1.amazonaws.com/node-app:latest'
+        //             sh 'docker rmi -f node-app:latest'
+
+        //         } 
+
+        //     }
         
         
         
