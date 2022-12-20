@@ -22,11 +22,11 @@ pipeline {
             steps{
                 script{
                     
-                        withAwsCli( 
+                    ecrListImages( 
                               credentialsId: 'aws-creds', 
                               defaultRegion: 'ap-south-1') { 
                               sh 'aws ecr list-images \
-                             ----repository-name node-app'
+                             ----repositoryName node-app'
                         }
                                   
                 }
