@@ -21,13 +21,9 @@ pipeline {
         stage('Delete Existing image from ecr'){
             steps{
                 script{
-                    
-                    ecrListImages( 
-                              credentialsId: 'aws-creds', 
-                              defaultRegion: 'ap-south-1') { 
-                              sh 'aws ecr list-images \
-                             ----repositoryName node-app'
-                        }
+                    def login = ecrLogin(registryId: 'aws-creds')
+                    def images = ecrListImages(repositoryName: 'node-app')
+                    ecrDeleteImages(repositoryName: 'node-app', imageIds: ['imageDigest': 'sha256:634babe6646aa0d6300bf867505b5d20619bc16f6c6c6b11c01e1637e1d76161', 'imageTag': 'latest'])
                                   
                 }
             }
