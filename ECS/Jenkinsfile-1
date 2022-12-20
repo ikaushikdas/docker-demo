@@ -7,34 +7,36 @@ pipeline {
                 git 'https://github.com/ikaushikdas/docker-demo.git'
             }
         }
-        // stage('Build Docker Image'){
+        stage('Build Docker Image'){
            
-        //     steps{
-        //         script {
-        //         //dockerImage = docker.build("node-app:${BUILD_NUMBER}")  
-        //         dockerImage = docker.build("node-app:latest")    
-        //         }  
-
-        //     }
-        // }
-
-        stage('Delete Existing image from ecr'){
             steps{
-                script{
-                    withAWS(credentials:'aws-creds', region:'ap-south-1') {
-                    sh 'aws ecr list-images \
-                        --repository-name node-app'
-                    def myVariable = sh 'aws ecr list-images \
-                        --repository-name node-app'
+                script {
+                //dockerImage = docker.build("node-app:${BUILD_NUMBER}")  
+                dockerImage = docker.build("node-app:latest")    
+                }  
 
-                    // sh 'aws ecr batch-delete-image \
-                    // --repository-name my-repo \
-                    // --image-ids imageDigest='
-                    echo myVariable
-                    }             
-                }
             }
         }
+
+        // stage('Delete Existing image from ecr'){
+        //     steps{
+        //         script{
+        //             withAWS(credentials:'aws-creds', region:'ap-south-1') {
+        //             sh 'aws ecr list-images \
+        //                 --repository-name node-app'
+        //             def myVariable = sh 'aws ecr list-images \
+        //                 --repository-name node-app'
+
+        //             // sh 'aws ecr batch-delete-image \
+        //             // --repository-name my-repo \
+        //             // --image-ids imageDigest='
+        //             if(myVariable != ''){
+        //             echo myVariable.imageIds['imageDigest']
+        //             }
+        //             }             
+        //         }
+        //     }
+        // }
         
         stage('Push To ECS'){
            
