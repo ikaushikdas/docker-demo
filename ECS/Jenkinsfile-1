@@ -7,22 +7,22 @@ pipeline {
                 git 'https://github.com/ikaushikdas/docker-demo.git'
             }
         }
-        stage('Build Docker Image'){
+        // stage('Build Docker Image'){
            
-            steps{
-                script {
-                //dockerImage = docker.build("node-app:${BUILD_NUMBER}")  
-                dockerImage = docker.build("node-app:latest")    
-                }  
+        //     steps{
+        //         script {
+        //         //dockerImage = docker.build("node-app:${BUILD_NUMBER}")  
+        //         dockerImage = docker.build("node-app:latest")    
+        //         }  
 
-            }
-        }
+        //     }
+        // }
 
         stage('Delete Existing image from ecr'){
             steps{
                 script{
                     withAWS(credentials:'aws-creds', region:'ap-south-1') {
-                        sh 'aws ecr list-images \
+                    sh 'aws ecr list-images \
                         --repository-name node-app'
                     def myVariable = "sh 'aws ecr list-images \
                         --repository-name node-app'"
@@ -30,7 +30,7 @@ pipeline {
                     // sh 'aws ecr batch-delete-image \
                     // --repository-name my-repo \
                     // --image-ids imageDigest='
-                    echo (myVariable['imageIds']['imageDigest'])
+                    echo myVariable
                     }             
                 }
             }
