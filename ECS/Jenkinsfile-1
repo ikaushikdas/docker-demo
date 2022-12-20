@@ -25,7 +25,7 @@ pipeline {
                     sh 'aws ecr list-images \
                         --repository-name node-app'
                     sh 'aws ecr batch-delete-image \
-                    --repository-name my-repo \
+                    --repository-name node-app \
                     --image-ids imageTag=latest'
                     }             
                 }
