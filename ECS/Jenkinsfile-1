@@ -22,13 +22,15 @@ pipeline {
             steps{
                 script{
                     withAWS(credentials:'aws-creds', region:'ap-south-1') {
+                        sh 'aws ecr list-images \
+                        --repository-name node-app'
                     def myVariable = "sh 'aws ecr list-images \
                         --repository-name node-app'"
 
                     // sh 'aws ecr batch-delete-image \
                     // --repository-name my-repo \
                     // --image-ids imageDigest='
-                    echo myVariable['imageIds']['imageDigest']
+                    echo (myVariable['imageIds']['imageDigest'])
                     }             
                 }
             }
