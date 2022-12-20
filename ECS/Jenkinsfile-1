@@ -31,7 +31,7 @@ pipeline {
                     // --repository-name my-repo \
                     // --image-ids imageDigest='
                     if(myVariable != ''){
-                    echo myVariable['imageIds']['imageDigest']
+                    echo myVariable
                     }
                     }             
                 }
