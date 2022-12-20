@@ -22,15 +22,13 @@ pipeline {
             steps{
                 script{
                     withAWS(credentials:'aws-creds', region:'ap-south-1') {
-                    sh 'aws ecr list-images \
-                        --repository-name node-app'
-                    sh 'aws ecr batch-delete-image \
-                    --repository-name node-app \
-                    --image-ids imageTag=latest'
-                   
-                    //def login = ecrLogin(registryId: 'aws-creds')
-                    //def images = ecrListImages(repositoryName: 'node-app')
-                    //ecrDeleteImages(repositoryName: 'node-app', imageIds: ['imageDigest': 'sha256:634babe6646aa0d6300bf867505b5d20619bc16f6c6c6b11c01e1637e1d76161', 'imageTag': 'latest'])
+                    def myVariable = "sh 'aws ecr list-images \
+                        --repository-name node-app'"
+
+                    // sh 'aws ecr batch-delete-image \
+                    // --repository-name my-repo \
+                    // --image-ids imageDigest='
+                    echo "myVariable['imageIds']['imageDigest']"
                     }             
                 }
             }
