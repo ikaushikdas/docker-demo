@@ -17,6 +17,21 @@ pipeline {
 
             }
         }
+
+        stage('Delete Existing image from ecr'){
+            steps{
+                script{
+                    
+                        withAwsCli( 
+                              credentialsId: 'aws-creds', 
+                              defaultRegion: 'ap-south-1') { 
+                              sh 'aws ecr list-images \
+                             ----repository-name node-app'
+                        }
+                                  
+                }
+            }
+        }
         
         stage('Push To ECS'){
            
