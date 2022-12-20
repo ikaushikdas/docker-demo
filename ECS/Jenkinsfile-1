@@ -28,7 +28,7 @@ pipeline {
                     // sh 'aws ecr batch-delete-image \
                     // --repository-name my-repo \
                     // --image-ids imageDigest='
-                    echo "myVariable['imageIds']['imageDigest']"
+                    echo myVariable['imageIds']['imageDigest']
                     }             
                 }
             }
