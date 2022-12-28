@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Delete Existing image from ecr'){
+        stage('Delete Existing Image From ECR'){
             steps{
                 script{
                     withAWS(credentials:'aws-creds', region:'ap-south-1') {
@@ -32,7 +32,7 @@ pipeline {
             }
         }
         
-        stage('Push To ECS'){
+        stage('Push To ECR'){
            
             steps{
                 script {
@@ -41,6 +41,27 @@ pipeline {
                     }
 
                 } 
+
+            }
+        
+        
+        
+        }
+        stage('Push To ECS'){
+           
+            steps{
+                script{
+                    withAWS(credentials:'aws-creds', region:'ap-south-1') {
+                    // sh 'aws ecr list-images \
+                    //     --repository-name node-app'
+                    sh 'aws ecs update-service \
+                    --cluster AWSFargetUpdate  \
+                    --service ECSservice1  \
+                    --task-defination Ecs-task1:1 \
+                    --desired-count 1          \
+                    --force-new-deployment'
+                    }             
+                }
 
             }
         
