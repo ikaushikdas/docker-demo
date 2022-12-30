@@ -54,9 +54,9 @@ pipeline {
                     withAWS(credentials:'aws-creds', region:'ap-south-1') {
 
                     sh 'aws ecs update-service \
-                    --cluster AWSFarget  \
-                    --service ECSservice1  \
-                    --task-definition Ecs-task1:1 \
+                    --cluster Ec2-Cluster \
+                    --service Ecs-Service \
+                    --task-definition ec2-task:1 \
                     --desired-count 1          \
                     --force-new-deployment'
                     }             
