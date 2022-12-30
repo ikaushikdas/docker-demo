@@ -52,8 +52,8 @@ pipeline {
             steps{
                 script{
                     withAWS(credentials:'aws-creds', region:'ap-south-1') {
-                    old_task_id='aws ecs list-tasks --cluster Ec2-Cluster --desired-status RUNNING --family ec2-task:1 | egrep "task/" | sed -E "s/.*task\/(.*)\"/\1/'
-                    oldtask_id= 'sh ${old_task_id}'
+                    sh 'aws ecs list-tasks --cluster Ec2-Cluster --desired-status RUNNING --family ec2-task:1 | egrep "task/" | sed -E "s/.*task\/(.*)\"/\1/'
+                    
                     sh 'aws ecs stop-task --cluster Ec2-Cluster --task ${oldtask_id}'
                     sh 'aws ecs update-service \
                     --cluster Ec2-Cluster \
