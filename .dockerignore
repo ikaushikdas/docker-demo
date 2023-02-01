@@ -1,0 +1,15 @@
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.gitignore
+coverage
+dockerhub
+ECS
+jenkins
+jfrog
+misc
+sonarqube
+Jenkinsfile
+sonar-project.properties
