@@ -15,7 +15,7 @@ spec:
           service:
             name: tg-redirect
             port:
-              number: 3020
+              number: 3000
       # - path: /currency-conversion/
       #   pathType: Prefix
       #   backend:
