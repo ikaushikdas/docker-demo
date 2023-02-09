@@ -9,6 +9,13 @@ spec:
   rules:
   - http:
       paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tg-redirect
+            port:
+              number: 3000
       - path: /tg-redirect/
         pathType: Prefix
         backend:
